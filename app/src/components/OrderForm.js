@@ -46,7 +46,7 @@ const orderInitialState = {
   orderFeasibility: true,
 };
 
-const OrderForm = ({ updateOrder, order, auth, updatePendingOrder }) => {
+function OrderForm ({ updateOrder, order, auth, updatePendingOrder }) {
   const his = useNavigate();
 
   //loading visibility changes
@@ -401,7 +401,7 @@ const OrderForm = ({ updateOrder, order, auth, updatePendingOrder }) => {
   // };
 
   return (
-    <>
+    <div>
       <p className={serverError.classError}>{serverError.message}</p>
       <Form onSubmit={submit} autocomplete="false">
         <Row className="m-2">
@@ -746,7 +746,7 @@ const OrderForm = ({ updateOrder, order, auth, updatePendingOrder }) => {
             <Form.Label column sm="3">
               Files:
             </Form.Label>
-            <Form.File
+            <Form.Control type="file"
               id="file"
               name="file"
               multiple
@@ -804,7 +804,7 @@ const OrderForm = ({ updateOrder, order, auth, updatePendingOrder }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 };
 

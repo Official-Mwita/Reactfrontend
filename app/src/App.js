@@ -11,9 +11,10 @@ import { BrowserRouter as Router, Routes , Route } from "react-router-dom";
 import AuthRoute from "./components/Routes/AuthRoute";
 import ProtectedRoutes from "./components/Routes/ProtectedRoutes";
 import PlaceOrderRoute from "./components/Routes/PlaceOrderRoute";
+import NotFound from "./NotFound";
 
-//const url = "https://topnopch.com/account";
-const url = "http://localhost:8000";
+const url = "http://imetechs.com/account";
+//const url = "http://localhost:8000";
 
 function App() {
   const [authInfo, createAuthInfo] = useState({
@@ -84,36 +85,33 @@ function App() {
   };
 
   return (
-    <Router basename="account/user">
+    <Router basename="/user">
       <Header auth={authInfo} changeAuthInfo={createAuthInfo} />
       <Routes>
-        <ProtectedRoutes
-          path="/dashboard"
-          component={Dashboard}
-          auth={authInfo}
+        <Route 
+          path = "/dashboard"
+          element = {<ProtectedRoutes component={Dashboard} auth={authInfo}/>}
         />
-        <AuthRoute
+        <Route 
           path="/login"
-          component={Login}
-          auth={authInfo}
-          changeAuth={changeAuthInfo}
+          element={<AuthRoute component={Login} auth={authInfo} changeAuth={changeAuthInfo}/>}
         />
-        <ProtectedRoutes path="/" exact component={Dashboard} auth={authInfo} />
-        <AuthRoute
+        <Route index element={<ProtectedRoutes component={Dashboard} auth={authInfo}/>} />
+        <Route 
           path="/register"
-          component={Register}
-          auth={authInfo}
-          changeAuth={changeAuthInfo}
+          element={<AuthRoute component={Register} auth={authInfo} changeAuth={changeAuthInfo}/>}
         />
-        <PlaceOrderRoute
+        <Route 
           path="/place-order"
-          component={OrderWrapper}
-          authInfo={authInfo}
-          order={order}
-          createOrder={createOrder}
-          updatePendingOrder={updatePendingOrder}
+          element={<PlaceOrderRoute 
+            component={OrderWrapper} 
+            authInfo={authInfo} 
+            order={order}
+            createOrder={createOrder}
+            updatePendingOrder={updatePendingOrder}
+            />}
         />
-        <Route path="*" component={() => "404 NOT FOUND"} />
+        <Route path="*" element = {<NotFound />} />
       </Routes>
     </Router>
   );

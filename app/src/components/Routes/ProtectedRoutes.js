@@ -1,10 +1,27 @@
-import React, { Component }  from 'react';
-import { Navigate, Route } from "react-router-dom";
+import React  from 'react';
+import { Navigate, useLocation } from "react-router-dom";
 
-function ProtectedRoutes({ component: Component, auth, orders, ...rest }) {
+function ProtectedRoutes({ component: Component, auth }) {
   const loggedIn = auth.loggedIn;
+  const location = useLocation();
   return (
-    <Route
+    loggedIn?
+    <Component auth={auth} />:
+    <Navigate
+        to={{
+          pathname: "/login",
+          state: {
+            from: location.location,
+          },
+        }}
+    />
+  );
+}
+
+export default ProtectedRoutes;
+
+/**
+ *  <Route
       {...rest}
       render={(props) => {
         if (loggedIn) {
@@ -23,7 +40,4 @@ function ProtectedRoutes({ component: Component, auth, orders, ...rest }) {
         }
       }}
     />
-  );
-}
-
-export default ProtectedRoutes;
+ */

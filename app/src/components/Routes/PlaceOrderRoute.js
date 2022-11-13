@@ -1,17 +1,26 @@
-import React, { Component }  from 'react';
-import { Route, Navigate } from "react-router-dom";
+import React  from 'react';
 
 function PlaceorderRoute({
   component: Component,
   order,
   createOrder,
   authInfo,
-  updatePendingOrder,
-  ...rest
+  updatePendingOrder
 }) {
-  const loggedIn = authInfo.loggedIn;
   return (
-    <Route
+    <Component
+      order={order}
+      auth={authInfo}
+      createOrder={createOrder}
+      updatePendingOrder={updatePendingOrder}
+    />
+  );
+}
+
+export default PlaceorderRoute;
+
+/**
+ <Route
       {...rest}
       render={(props) => {
         return (
@@ -24,7 +33,4 @@ function PlaceorderRoute({
         );
       }}
     />
-  );
-}
-
-export default PlaceorderRoute;
+ */
